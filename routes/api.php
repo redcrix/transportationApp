@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Http\Request;
 
 /*
@@ -24,6 +23,8 @@ Route::post('details', 'Api\UserController@details');
 Route::post('update','Api\UserController@update');
 Route::get('edit','Api\UserController@edit');
 Route::get('profile', 'Api\UserController@profile');
+Route::post('profile', 'Api\UserController@update_image');
+
 });
 Route::get('users', 'Api\UserController@getallusers');
 Route::post('userdelete', 'Api\UserController@delete');

@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,10 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
+
+
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/userdata', 'HomeController@showUserdata')->name('data');
+Route::get('/userdata/{id}','HomeController@destroy');
+Route::get('/userdata/edituser/{id}','HomeController@edit')->name('edituser');
+Route::post('/userdata','HomeController@update')->name('update');
 Auth::routes();
+Route::get('/register', 'RegisterController@showform')->name('/register.showform');
+Route::post('/register', 'RegisterController@register')->name('/register');
+Route::get('/profile', 'HomeController@profile');
+Route::get('/profile/profileimage', 'HomeController@show')->middleware('auth')->name('/profile/profileimage.show');
+Route::post('/profile/profileimage', 'HomeController@update')->middleware('auth')->name('/profile/profileimage.update');
 
-Route::get('/home', 'HomeController@index')->name('home');

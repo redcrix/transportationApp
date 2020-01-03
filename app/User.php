@@ -17,7 +17,7 @@ use HasApiTokens, Notifiable;
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email','phone', 'password', 'address', 'gender','user_type', 'code','active','image'
+        'first_name', 'last_name', 'email','phone', 'password', 'address', 'gender','user_type', 'code','api_token','active','image',
     ];
 
     /**

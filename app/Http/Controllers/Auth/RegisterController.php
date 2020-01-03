@@ -58,7 +58,7 @@ class RegisterController extends Controller
             'c_password'=>['required', 'string',],
             'gender' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
-            'user_type' => ['required', 'number', 'max:255'],
+            'user_type' => ['required', 'string', 'max:255'],
         ]);
     }
 

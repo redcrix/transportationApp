@@ -65,31 +65,36 @@ return response()->json(['success'=>$success], $this-> successStatus);
         $user = Auth::user(); 
         return response()->json(['success' => $user], $this-> successStatus); 
     } 
+    
+// all user details api
+
+    public function getallusers()
+    {
+        $users=User::all();
+        return  response()->json(['code'=>200,'message'=>'success','data' => $users],$this->successStatus); 
+        
+    }
 
     
-    public function profile()
-    {
-        $user = Auth::user();
-        return view('profile',compact('user',$user));
+    public function profile(){
+        return view('profile', array('user' => Auth::user()) );
     }
 
     public function update_image(Request $request){
 
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        // Handle the user upload of image
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            Image::make($images)->resize(300, 300)->save( public_path('/uploads/images/' . $filename ) );
 
-        $user = Auth::user();
+            $user = Auth::user();
+            $user->images = $filename;
+            $user->save();
+        }
 
-        $imageName = $user->id.'_image'.time().'.'.request()->image->getClientOriginalExtension();
-
-        $request->image->storeAs('images',$imageName);
-
-        $user->image = $imageName;
-        $user->save();
-
-        return back()
-            ->with('success','You have successfully upload image.');
+        return view('profile', array('user' => Auth::user()) );
 
     }
+    
 }
